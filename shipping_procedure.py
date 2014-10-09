@@ -22,7 +22,16 @@ class Melon(object):
             return self.melon_type
         else:
             return "%s %0.2fLB %s" % (self.color, self.weight, self.melon_type)
-    
+#############NEW STUFF I ADDED#############    
+class Squash(Melon):
+
+    def prep(self):
+        robots.cleanerbot.clean(self)
+        robots.painterbot.paint(self)
+        robots.stickerbot.apply_logo(self)
+###########################################
+
+
 
 def help():
     print """
@@ -44,6 +53,7 @@ robots used to fulfill the orders.
 
 
 """
+
 
 MELON_LIMIT = 200
 
@@ -89,7 +99,12 @@ def main():
                 sys.exit()
             
             # Have the robot pick a melon
-            m = Melon(melon_type)
+            
+            ###########NEW STUFF I ADDED#########
+            if melon_type == "Winter Squash":
+                m = Squash(melon_type)
+            else: #############################
+                m = Melon(melon_type)
             robots.pickerbot.pick(m)
             count += 1
             
